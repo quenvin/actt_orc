@@ -110,7 +110,7 @@ class UploadsController < ApplicationController
     image.crop "#{crop_boundary_width}X#{crop_boundary_height}+#{crop_boundary_padding_left}+#{crop_boundary_padding_top}"
     image.resize "700X1000!"
 
-    processed_img = image.write "#{Image.last.processed_photo}"
+    processed_img = image.write "processed_img/#{Image.last.processed_photo}"
 
     redirect_to new_upload_path
   end
