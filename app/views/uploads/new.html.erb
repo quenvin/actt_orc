@@ -9,3 +9,10 @@
 <%= f.submit %>
 
 <% end %>
+
+
+<% @showall.each do |show| %>
+
+  <%= image_tag show.photo %>
+
+<% end %>
