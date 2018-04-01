@@ -13,7 +13,7 @@ class UploadsController < ApplicationController
       #project: "first-ocr-project", #Quenvin's project name
       #keyfile: JSON.parse(ENV['GOOGLECLOUD_API_KEY'])
       project: "Jscript test", #Fred's project name
-      keyfile: "Jscript test-ca69f7972e7f.json"
+      keyfile: "Jscript test-dcca47f5a8b6"
       )
 
     image = vision.image(Upload.last.photo.path)
