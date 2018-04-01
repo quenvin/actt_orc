@@ -1,0 +1,3 @@
+class Raw < ApplicationRecord
+  
+end
