@@ -95,13 +95,11 @@ interact('.resize-drag')
   })
   
   .on('resizemove', function (event) {
-    target = event.target,
-        xResize = (parseFloat(target.getAttribute('data-x')) || 0),
-        yResize = (parseFloat(target.getAttribute('data-y')) || 0);
+    target = event.target;
         
     // update the element's style
-    width = target.style.width  = event.rect.width + 'px';
-    height = target.style.height = event.rect.height + 'px';
+    width = target.style.width  = parseInt(event.rect.width) + 'px';
+    height = target.style.height = parseInt(event.rect.height) + 'px';
 
     target.textContent = '' ;
     boxDimensions(height, width);
@@ -112,14 +110,15 @@ function boxPosition(x, y){
   x = parseInt(x);
   y = parseInt(y);
   var startPoint = [x, y];
-  //console.log(startPoint);
   return startPoint;
 }
 
 //Get the height and width of the box
 function boxDimensions(height, width){
+
   height = parseInt(height.replace(/\D/g,''));
   width = parseInt(width.replace(/\D/g,''));
+
   var bDimensions = [height, width]
   //console.log(bDimensions);
   return bDimensions;
@@ -162,13 +161,13 @@ $("#target").click(function(){
     valueOutput()
     
   }
-  console.log(labelValues)
+
 });
 
 $("#submit").click(function (){
   
-  //console.log('test')
-  $.post('/templates', { 'labelValues': JSON.stringify(labelValues) })
+  let templateName = window.prompt("Please name this Template", "");
+  $.post('/templates', { 'templateName': JSON.stringify(templateName), 'labelValues': JSON.stringify(labelValues) })
 
 });
 

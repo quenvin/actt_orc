@@ -8,6 +8,12 @@ def new
 end
 
 def create
+  #create new template name, fields template, field
+  
+  #Create a new template
+  #@template = Template.new()
+
+  
   byebug
 end
 
