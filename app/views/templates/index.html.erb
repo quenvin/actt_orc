@@ -1,0 +1,34 @@
+<table>
+  <tr>  
+    <td>
+      <div class="resize-container">
+        <div class="resize-drag" id="box">
+          Select a field
+        </div>
+
+        <canvas id="canvas" class="canvasbox" width="700" height="1000"></canvas>
+    
+        <% @images.each do |img| %>
+          <%= image_tag img.processed_photo %>
+        <% end %>
+        
+      </div>
+    </td>
+  
+  <td td valign="top">
+    
+    <strong id="textOutput1">Please select a label</strong> 
+    <button id="target">Select</button> 
+    
+    </br>
+
+    <table><tr>
+      <td valign="top"><div id="selectedLabels"></div></td>
+      <td valign="top"><div id="selectedValues"></div></td>
+      <td valign="top"><div id="selectedRows"></div></td>
+    </tr></table>
+    
+  </td>
+
+  </tr>
+</table>

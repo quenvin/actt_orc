@@ -111,9 +111,9 @@ class UploadsController < ApplicationController
     image.crop "#{crop_boundary_width}X#{crop_boundary_height}+#{crop_boundary_padding_left}+#{crop_boundary_padding_top}"
     image.resize "700X1000!"
 
-    processed_img = image.write "processed_img/#{Image.last.processed_photo}"
+    processed_img = image.write "app/assets/images/#{Image.last.processed_photo}"
 
-    p_image = vision.image("./processed_img/#{Image.last.processed_photo}")
+    p_image = vision.image("app/assets/images/#{Image.last.processed_photo}")
     p_image_word = p_image.document.words #Returns all the processed image's word bounds
 
     redirect_to new_upload_path
