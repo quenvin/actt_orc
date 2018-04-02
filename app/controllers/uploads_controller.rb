@@ -17,6 +17,7 @@ class UploadsController < ApplicationController
       keyfile: "Jscript test-dcca47f5a8b6.json"
       )
 
+
     image = vision.image(Upload.last.photo.path)
     doc_text_bound = image.document.bounds
     word = image.document.words
@@ -114,8 +115,11 @@ class UploadsController < ApplicationController
     processed_img = image.write "app/assets/images/#{Image.last.processed_photo}"
 
     p_image = vision.image("app/assets/images/#{Image.last.processed_photo}")
-    p_image_word = p_image.document.words #Returns all the processed image's word bounds
+    raw_data = p_image #Returns all the processed image's vision data
 
+    raw = CreateRawDataService.new(raw_data).call
+    template_id = CheckExistingTemplateService.new(raw).call
+    ExtractImageValuesService.new(template_id, raw).call
     redirect_to new_upload_path
   end
 

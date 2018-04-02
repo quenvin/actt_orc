@@ -42,8 +42,11 @@ ActiveRecord::Schema.define(version: 20180401083307) do
   end
 
   create_table "raws", force: :cascade do |t|
+    t.bigint "image_id"
+    t.string "raw_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["image_id"], name: "index_raws_on_image_id"
   end
 
   create_table "templates", force: :cascade do |t|
@@ -62,4 +65,5 @@ ActiveRecord::Schema.define(version: 20180401083307) do
   add_foreign_key "fields_templates", "fields"
   add_foreign_key "fields_templates", "templates"
   add_foreign_key "images", "uploads"
+  add_foreign_key "raws", "images"
 end
