@@ -40,7 +40,7 @@ $( document ).ready(function(){
     value = JSON.parse(sessionStorage.getItem("value"));
     valueOutput();
   }
-  
+
 var target;
 var height;
 var width;
@@ -104,7 +104,6 @@ interact('.resize-drag')
     height = target.style.height = event.rect.height + 'px';
 
     target.textContent = '' ;
-    
     boxDimensions(height, width);
   });
 
@@ -129,6 +128,7 @@ function boxDimensions(height, width){
 $("#textOutput1").html('Please select a label');
 let counter = 0;
 var valueCheck = 0;
+let labelValues = []
 
 $("#target").click(function(){
 
@@ -143,6 +143,9 @@ $("#target").click(function(){
   //Print out Label box in document
   if(counter == 0){
     $("#textOutput1").html('Please select a value');
+    const newPair = {}
+    newPair.label = keyBox
+    labelValues.push(newPair)
     label.push(keyBox);
     counter = 1;
     
@@ -150,13 +153,28 @@ $("#target").click(function(){
 
   }else{ //Print out Value box in document
     $("#textOutput1").html('Please select a label');
+    const pair = labelValues[labelValues.length-1]
+    pair.value = valueBox
+    labelValues[labelValues.length-1] = pair
     value.push(valueBox);
     counter = 0;
 
     valueOutput()
     
   }
+  console.log(labelValues)
 });
+
+$("#submit").click(function (){
+  
+  //console.log('test')
+  $.post('/templates', { 'labelValues': JSON.stringify(labelValues) })
+
+});
+
+
+
+
 
 })
 
@@ -223,3 +241,4 @@ function valueOutput(){
     
   });
 }
+
