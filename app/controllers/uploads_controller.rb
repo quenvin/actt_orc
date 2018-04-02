@@ -11,9 +11,10 @@ class UploadsController < ApplicationController
     require "google/cloud/vision"
     vision = Google::Cloud::Vision.new(
       #project: "first-ocr-project", #Quenvin's project name
-      #keyfile: JSON.parse(ENV['GOOGLECLOUD_API_KEY'])
       project: "Jscript test", #Fred's project name
-      keyfile: "Jscript test-dcca47f5a8b6"
+      #keyfile: JSON.parse(ENV['GOOGLECLOUD_API_KEY'])
+      
+      keyfile: "Jscript test-dcca47f5a8b6.json"
       )
 
     image = vision.image(Upload.last.photo.path)
@@ -111,6 +112,9 @@ class UploadsController < ApplicationController
     image.resize "700X1000!"
 
     processed_img = image.write "processed_img/#{Image.last.processed_photo}"
+
+    p_image = vision.image("./processed_img/#{Image.last.processed_photo}")
+    p_image_word = p_image.document.words #Returns all the processed image's word bounds
 
     redirect_to new_upload_path
   end
