@@ -18,7 +18,7 @@ class UploadsController < ApplicationController
       )
 
 
-    image = vision.image(Upload.last.photo.path)
+    image = vision.image(upload.photo.path)
     doc_text_bound = image.document.bounds
     word = image.document.words
 
@@ -91,10 +91,10 @@ class UploadsController < ApplicationController
     word.to_h[:bounds][0][:x] > x2y2[0] ? rotation = "right" : rotation = "left"
       
     #Rotate and crop image and save processed image to image table
-    new_image = Image.new(upload_id: upload.id, processed_photo: Upload.last.photo.file.filename)
+    new_image = Image.new(upload_id: upload.id, processed_photo: upload.photo.file.filename)
     new_image.save
 
-    image = MiniMagick::Image.open(Upload.last.photo.path)
+    image = MiniMagick::Image.open(upload.photo.path)
     image.path
 
     image.rotate -angle if rotation == "right"
@@ -119,7 +119,7 @@ class UploadsController < ApplicationController
 
     raw = CreateRawDataService.new(raw_data).call
     template_id = CheckExistingTemplateService.new(raw).call
-    ExtractImageValuesService.new(template_id, raw).call
+    #ExtractImageValuesService.new(template_id, raw).call
     redirect_to new_upload_path
   end
 
@@ -127,5 +127,6 @@ class UploadsController < ApplicationController
   def upload_params
     params.require(:upload).permit(:photo)
   end
+
 
 end

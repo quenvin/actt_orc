@@ -11,7 +11,8 @@ def create
   #create new template name, fields template, field
   
   #Create a new template
-  #@template = Template.new()
+  @template = Template.new(template_name: JSON.parse(params['templateName']))
+  @template.save
 
   
   byebug
